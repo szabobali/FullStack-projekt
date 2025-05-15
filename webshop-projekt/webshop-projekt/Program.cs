@@ -1,5 +1,6 @@
-using webshop_projekt.DAL;
 using Microsoft.EntityFrameworkCore;
+using webshop_projekt.DAL;
+using webshop_projekt.Models;
 
 namespace webshop_projekt
 {
@@ -33,7 +34,7 @@ namespace webshop_projekt
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
+            SeedData.EnsurePopulated(app);
             app.Run();
         }
     }

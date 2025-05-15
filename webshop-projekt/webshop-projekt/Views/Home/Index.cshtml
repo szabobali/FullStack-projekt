@@ -1,12 +1,6 @@
 ﻿@model IQueryable<Goods>
+
 @foreach (var p in Model)
 {
-	<div>
-		<h4>
-			@p.Description
-		</h4>
-		<h4>
-			@p.Price.ToString("c")
-		</h4>
-	</div>
+	<partial name="GoodsTemplate" model="p"/>
 }
