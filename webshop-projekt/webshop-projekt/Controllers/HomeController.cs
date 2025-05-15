@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using webshop_projekt.DAL;
 using webshop_projekt.Models;
 
 namespace webshop_projekt.Controllers
@@ -7,15 +8,17 @@ namespace webshop_projekt.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private WebshopDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, WebshopDbContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(_dbContext.Goods);
         }
 
         public IActionResult Privacy()
