@@ -18,7 +18,13 @@ namespace webshop_projekt.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            Goods termek = new Goods()
+            {
+                Description="ez itt egy teszt", Price=22301
+            };
+            _dbContext.Goods.Add(termek);
+            _dbContext.SaveChanges();
+            return View(_dbContext.Goods);
         }
 
         public IActionResult Privacy()
