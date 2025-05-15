@@ -13,7 +13,7 @@ namespace webshop_projekt
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<WebshopDbContext>(opts => { opts.UseSqlServer("name=ConnectionStrings:WebshopConnection"); });
-
+            builder.Services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(30); });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -25,6 +25,7 @@ namespace webshop_projekt
             }
 
             app.UseHttpsRedirection();
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseRouting();
