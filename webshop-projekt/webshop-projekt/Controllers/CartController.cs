@@ -1,6 +1,8 @@
 ﻿using webshop_projekt.DAL;
 using webshop_projekt.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace webshop_projekt.Controllers
 {
@@ -53,6 +55,26 @@ namespace webshop_projekt.Controllers
             cart.RemoveAt(index);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult CheckOut()
+        {
+            return View("CheckOut");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CheckOut(Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+                order.TotalPrice = (int)cart.Sum(item => item.Product.Price * item.Quantity);
+                _dbContext.Orders.Add(order);
+                _dbContext.SaveChanges();
+                HttpContext.Session.Clear(); // Kosár ürítése
+                return View("CheckOut2", order);
+            }
+            return View("CheckOut");
         }
         private int IsExist(long id)
         {
