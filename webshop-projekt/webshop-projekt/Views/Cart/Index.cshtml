@@ -1,0 +1,40 @@
+﻿<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Index</title>
+</head>
+<body>
+	<h3>Cart Page</h3>
+	<table width="80%" cellpading="2" cellspacing="2" border="1">
+		<tr>
+			<th>Option</th>
+			<th>Id</th>
+			<th><center>Name</center></th>
+			<th>Price</th>
+			<th>Quantity</th>
+			<th>Sub Total</th>
+		</tr>
+		@foreach (var item in ViewBag.cart)
+		{
+			<tr width="80%">
+				<td>
+					<a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.ID"> Remove </a>
+				</td>
+				<td>@item.Product.ID</td>
+				<td>@item.Product.Name</td>
+				<td>@item.Product.Price</td>
+				<td align="center">@item.Quantity</td>
+				<td align="center">@(item.Product.Price* item.Quantity)</td>
+			</tr>
+		}
+		<tr>
+			<td align="right" colspan="6">Sum</td>
+			<td>@ViewBag.total</td>
+		</tr>
+	</table>
+	<br />
+	<a asp-controller="home" asp-action="index">Continue Shopping</a>
+	<br />
+	<a asp-controller="home" asp-action="index">CheckOut</a> //még nem működik
+</body>
+</html>

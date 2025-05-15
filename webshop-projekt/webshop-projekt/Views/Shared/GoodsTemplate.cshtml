@@ -13,3 +13,6 @@
 		<p class="card-text">@Model.Description</p>
 	</div>
 </div>
+<p class="card-text">
+	<a asp-controller="cart" asp-action="buy" asp-route-id="@Model.ID">Buy Now</a>
+</p>
