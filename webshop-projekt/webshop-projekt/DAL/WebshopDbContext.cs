@@ -8,5 +8,6 @@ namespace webshop_projekt.DAL
         public WebshopDbContext(DbContextOptions<WebshopDbContext> options) : base(options)
         { }
         public DbSet<Goods> Goods { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

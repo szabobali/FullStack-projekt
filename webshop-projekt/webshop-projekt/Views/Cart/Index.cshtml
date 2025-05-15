@@ -35,6 +35,9 @@
 	<br />
 	<a asp-controller="home" asp-action="index">Continue Shopping</a>
 	<br />
-	<a asp-controller="home" asp-action="index">CheckOut</a> //még nem működik
+	@if (ViewBag.cart != null && ((List<webshop_projekt.Models.Item>)ViewBag.cart).Count != 0)
+	{
+		<a asp-controller="Cart" asp-action="CheckOut" class="btn btn-success mt-3">Tovább a fizetéshez</a>
+	}
 </body>
 </html>
