@@ -52,7 +52,8 @@ namespace webshop_projekt.Controllers
             List<Item> cart =
             SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             int index = IsExist(id);
-            cart.RemoveAt(index);
+            if (cart[index].Quantity > 1) cart[index].Quantity--;
+            else cart.RemoveAt(index);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             return RedirectToAction("Index");
         }
