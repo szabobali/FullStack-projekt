@@ -6,8 +6,10 @@ namespace webshop_projekt.Models
     {
         public long ID { get; set; }
         public string Name { get; set; }
-        public string? Category { get; set; }
-        public string? Description {  get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        public string? Description { get; set; }
+
         [Column(TypeName = "decimal(8,2)")]
         public decimal Price { get; set; }
     }
