@@ -19,6 +19,7 @@ namespace webshop_projekt.Controllers
         public IActionResult Index(string category)
         {
             var goods = _dbContext.Goods.Where(x => category == null || x.Category == category);
+            ViewBag.SelectedCategory = category ?? "";
             return View(goods);
         }
 
