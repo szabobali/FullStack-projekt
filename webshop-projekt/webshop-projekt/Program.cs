@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using webshop_projekt.DAL;
 using webshop_projekt.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace webshop_projekt
 {
@@ -9,11 +12,27 @@ namespace webshop_projekt
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var connectionString = builder.Configuration.GetConnectionString("WebshopConnection") ?? throw new InvalidOperationException("Connection string 'WebshopDbContextConnection' not found.");
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<WebshopDbContext>(opts => { opts.UseSqlServer("name=ConnectionStrings:WebshopConnection"); });
+            builder.Services.AddDbContext<WebshopDbContext>(opts =>
+            {
+                opts.UseSqlServer("name=ConnectionStrings:WebshopConnection")
+                    .ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
+            });
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+                options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<WebshopDbContext>();
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.ClaimsIdentity.RoleClaimType = ClaimTypes.Role;
+            });
             builder.Services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(30); });
+ 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -30,11 +49,16 @@ namespace webshop_projekt
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
             SeedData.EnsurePopulated(app);
             app.Run();
         }

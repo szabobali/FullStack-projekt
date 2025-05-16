@@ -3,6 +3,8 @@ using webshop_projekt.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace webshop_projekt.Controllers
 {
@@ -58,11 +60,13 @@ namespace webshop_projekt.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
+        [Authorize]
         public IActionResult CheckOut()
         {
             return View("CheckOut");
         }
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public IActionResult CheckOut(Order order)
         {
