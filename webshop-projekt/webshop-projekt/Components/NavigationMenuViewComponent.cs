@@ -14,7 +14,11 @@ namespace webshop_projekt.Components
         }
         public IViewComponentResult Invoke()
         {
-            var categories = _dbContext.Goods.Select(x => x.Category).Distinct().OrderBy(x => x);
+            var categories = _dbContext.Categories
+                .Select(c => c.Name)
+                .OrderBy(name => name)
+                .ToList();
+
             return View(categories);
         }
     }

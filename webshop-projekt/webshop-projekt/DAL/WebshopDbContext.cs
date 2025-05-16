@@ -9,5 +9,6 @@ namespace webshop_projekt.DAL
         { }
         public DbSet<Goods> Goods { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
