@@ -1,0 +1,18 @@
+﻿@using Microsoft.EntityFrameworkCore;
+@model Goods
+<div class="card" style="width: 100%">
+	<div class="card-body">
+		<h5 class="card-title">
+			@Model.Name
+			<button type="button" class="btn btn-primary">
+				<span class="badge badge-pill badge-primary">
+					<small>@Model.Price.ToString("c")</small>
+				</span>
+			</button>
+		</h5>
+		<p class="card-text">@Model.Description</p>
+	</div>
+</div>
+<p class="card-text">
+	<a asp-controller="cart" asp-action="buy" asp-route-id="@Model.ID">Buy Now</a>
+</p>
