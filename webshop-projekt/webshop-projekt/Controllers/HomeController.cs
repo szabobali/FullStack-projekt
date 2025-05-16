@@ -16,9 +16,10 @@ namespace webshop_projekt.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string category)
         {
-            return View(_dbContext.Goods);
+            var goods = _dbContext.Goods.Where(x => category == null || x.Category == category);
+            return View(goods);
         }
 
         public IActionResult Privacy()
