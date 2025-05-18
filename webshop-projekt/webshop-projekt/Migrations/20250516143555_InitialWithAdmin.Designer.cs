@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webshop_projekt.DAL;
 
@@ -11,9 +12,11 @@ using webshop_projekt.DAL;
 namespace webshop_projekt.Migrations
 {
     [DbContext(typeof(WebshopDbContext))]
-    partial class WebshopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250516143555_InitialWithAdmin")]
+    partial class InitialWithAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,14 +155,14 @@ namespace webshop_projekt.Migrations
                         {
                             Id = "02174cf0-9412-4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0cb8fc72-f075-4957-907d-4fb7dfbc3dc2",
+                            ConcurrencyStamp = "d195f440-d034-43d0-8a7a-aa0dfc0b9e46",
                             Email = "admin@admin.hu",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@ADMIN.HU",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGwg6cSVl8oVVV824rn34orpw3HEtuj4CNJJwmfYG/orancSCE7a6s4uu/r4CLSFIQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELXgUm+fJSKnAV45OjcYaix4uTXH8aMXjBvlC4f19X5CeqUG4F1PzzynZybv/moQQg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0e377628-269a-4963-8751-43d8be4305ea",
+                            SecurityStamp = "45343e7a-d4ef-4c4d-96bb-63febdd98577",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.hu"
                         });
@@ -265,8 +268,8 @@ namespace webshop_projekt.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ID"));
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -280,35 +283,7 @@ namespace webshop_projekt.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Goods");
-                });
-
-            modelBuilder.Entity("webshop_projekt.Models.Item", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<long?>("ProductID")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("Item");
                 });
 
             modelBuilder.Entity("webshop_projekt.Models.Item", b =>
@@ -344,18 +319,6 @@ namespace webshop_projekt.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
                         .IsRequired()
