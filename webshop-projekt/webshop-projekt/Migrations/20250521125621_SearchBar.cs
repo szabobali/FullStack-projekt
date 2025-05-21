@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace webshop_projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialWithAdmin : Migration
+    public partial class SearchBar : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,19 +51,16 @@ namespace webshop_projekt.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Goods",
+                name: "Categories",
                 columns: table => new
                 {
-                    ID = table.Column<long>(type: "bigint", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Goods", x => x.ID);
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,6 +191,28 @@ namespace webshop_projekt.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Goods",
+                columns: table => new
+                {
+                    ID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Goods", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Goods_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Item",
                 columns: table => new
                 {
@@ -226,7 +245,7 @@ namespace webshop_projekt.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "02174cf0-9412-4cfe-afbf-59f706d72cf6", 0, "d195f440-d034-43d0-8a7a-aa0dfc0b9e46", "admin@admin.hu", true, false, null, null, "ADMIN@ADMIN.HU", "AQAAAAIAAYagAAAAELXgUm+fJSKnAV45OjcYaix4uTXH8aMXjBvlC4f19X5CeqUG4F1PzzynZybv/moQQg==", null, false, "45343e7a-d4ef-4c4d-96bb-63febdd98577", false, "admin@admin.hu" });
+                values: new object[] { "02174cf0-9412-4cfe-afbf-59f706d72cf6", 0, "3434405f-7f49-4066-acf7-f6da5890d82e", "admin@admin.hu", true, false, null, null, "ADMIN@ADMIN.HU", "AQAAAAIAAYagAAAAEHhnWSvpXOz5u2qrlLNO8uxGrvt1d91pAsK1ZVPBLjkAj417sxWdpzSfufw1BHgB1Q==", null, false, "ee252e3c-3c58-446c-ad5d-5ec80d07a24d", false, "admin@admin.hu" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -273,6 +292,11 @@ namespace webshop_projekt.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Goods_CategoryId",
+                table: "Goods",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Item_OrderId",
                 table: "Item",
                 column: "OrderId");
@@ -315,6 +339,9 @@ namespace webshop_projekt.Migrations
 
             migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

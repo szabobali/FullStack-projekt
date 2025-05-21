@@ -12,8 +12,8 @@ using webshop_projekt.DAL;
 namespace webshop_projekt.Migrations
 {
     [DbContext(typeof(WebshopDbContext))]
-    [Migration("20250516144253_EnsureAdminSeed")]
-    partial class EnsureAdminSeed
+    [Migration("20250521125621_SearchBar")]
+    partial class SearchBar
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,14 +155,14 @@ namespace webshop_projekt.Migrations
                         {
                             Id = "02174cf0-9412-4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0cb8fc72-f075-4957-907d-4fb7dfbc3dc2",
+                            ConcurrencyStamp = "3434405f-7f49-4066-acf7-f6da5890d82e",
                             Email = "admin@admin.hu",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@ADMIN.HU",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGwg6cSVl8oVVV824rn34orpw3HEtuj4CNJJwmfYG/orancSCE7a6s4uu/r4CLSFIQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHhnWSvpXOz5u2qrlLNO8uxGrvt1d91pAsK1ZVPBLjkAj417sxWdpzSfufw1BHgB1Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0e377628-269a-4963-8751-43d8be4305ea",
+                            SecurityStamp = "ee252e3c-3c58-446c-ad5d-5ec80d07a24d",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.hu"
                         });
@@ -260,6 +260,22 @@ namespace webshop_projekt.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("webshop_projekt.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("webshop_projekt.Models.Goods", b =>
                 {
                     b.Property<long>("ID")
@@ -268,8 +284,8 @@ namespace webshop_projekt.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ID"));
 
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -282,6 +298,8 @@ namespace webshop_projekt.Migrations
                         .HasColumnType("decimal(8,2)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Goods");
                 });
@@ -410,6 +428,17 @@ namespace webshop_projekt.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("webshop_projekt.Models.Goods", b =>
+                {
+                    b.HasOne("webshop_projekt.Models.Category", "Category")
+                        .WithMany("Goods")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("webshop_projekt.Models.Item", b =>
                 {
                     b.HasOne("webshop_projekt.Models.Order", null)
@@ -421,6 +450,11 @@ namespace webshop_projekt.Migrations
                         .HasForeignKey("ProductID");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("webshop_projekt.Models.Category", b =>
+                {
+                    b.Navigation("Goods");
                 });
 
             modelBuilder.Entity("webshop_projekt.Models.Order", b =>
