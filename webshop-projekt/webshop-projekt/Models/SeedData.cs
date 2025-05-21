@@ -33,7 +33,7 @@ namespace webshop_projekt.Models
                     new Category { Name = "Billentyűzet" },
                     new Category { Name = "Monitor" }
                 );
-                context.SaveChanges(); // FONTOS!
+                context.SaveChanges();
             }
 
             if (!context.Goods.Any())

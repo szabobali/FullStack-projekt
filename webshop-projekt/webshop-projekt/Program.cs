@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using webshop_projekt.DAL;
 using webshop_projekt.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
 namespace webshop_projekt
