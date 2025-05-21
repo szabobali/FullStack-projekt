@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using webshop_projekt.DAL;
 using webshop_projekt.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace webshop_projekt.Controllers
 {
@@ -21,6 +22,19 @@ namespace webshop_projekt.Controllers
             var goods = _dbContext.Goods.Where(x => category == null || x.Category.Name == category);
             ViewBag.SelectedCategory = category ?? "";
             return View(goods);
+        }
+
+        [HttpGet]
+        public IActionResult Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return View(new List<Goods>());
+
+            var results = _dbContext.Goods
+                .Where(g => g.Name.Contains(query) || g.Description.Contains(query))
+                .ToList();
+
+            return View(results);
         }
 
         public IActionResult Privacy()

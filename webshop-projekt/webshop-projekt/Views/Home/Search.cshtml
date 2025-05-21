@@ -1,0 +1,31 @@
+﻿@model IEnumerable<webshop_projekt.Models.Goods>
+
+@{
+    ViewData["Title"] = "Keresési eredmények";
+}
+
+<h2>Keresési eredmények</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">
+        Nincs találat a keresésre.
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-text"><strong>Ár:</strong> @item.Price Ft</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
