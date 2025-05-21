@@ -14,18 +14,21 @@
 			<th>Quantity</th>
 			<th>Sub Total</th>
 		</tr>
-		@foreach (var item in ViewBag.cart)
+		@if (ViewBag.cart != null && ViewBag.cart.Any())
 		{
-			<tr width="80%">
-				<td>
-					<a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.ID"> Remove </a>
-				</td>
-				<td>@item.Product.ID</td>
-				<td>@item.Product.Name</td>
-				<td>@item.Product.Price</td>
-				<td align="center">@item.Quantity</td>
-				<td align="center">@(item.Product.Price* item.Quantity)</td>
-			</tr>
+			@foreach (var item in ViewBag.cart)
+			{
+				<tr width="80%">
+					<td>
+						<a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.ID"> Remove </a>
+					</td>
+					<td>@item.Product.ID</td>
+					<td>@item.Product.Name</td>
+					<td>@item.Product.Price</td>
+					<td align="center">@item.Quantity</td>
+					<td align="center">@(item.Product.Price* item.Quantity)</td>
+				</tr>
+			}
 		}
 		<tr>
 			<td align="right" colspan="6">Sum</td>

@@ -17,10 +17,19 @@ namespace webshop_projekt.Controllers
         }
         public IActionResult Index()
         {
-            var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session,
-            "cart");
+            var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             ViewBag.cart = cart;
-            ViewBag.total = cart.Sum(item => item.Product.Price * item.Quantity);
+
+            if (cart != null && cart.Any())
+            {
+                var sum = cart.Sum(item => item.Product.Price * item.Quantity);
+                ViewBag.total = sum;
+            }
+            else
+            {
+                ViewBag.total = 0;
+            }
+
             return View();
         }
         [Route("buy/{id}")]
