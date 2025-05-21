@@ -1,0 +1,21 @@
+﻿@model IEnumerable<webshop_projekt.Models.Goods>
+
+@{
+    ViewData["Title"] = "Keresési eredmények";
+}
+
+<h2>Keresési eredmények</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">
+        Nincs találat a keresésre.
+    </div>
+}
+else
+{
+    @foreach (var p in Model)
+    {
+        <partial name="GoodsTemplate" model="p" />
+    }
+}
