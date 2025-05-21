@@ -1,5 +1,10 @@
 # Webshop Projekt
 
+## Készítette
+
+Szentesi Bálint(FKNQAH)
+Szabó Balázs(O28IFJ)
+
 Ez az ASP.NET Core MVC alapokon fejlesztett webshop alkalmazás lehetőséget biztosít termékek böngészésére, keresésére, kosárba helyezésére, valamint rendelések leadására. Az alkalmazás Identity-alapú bejelentkezést és szerepkörkezelést, valamint adminisztratív funkciókat is tartalmaz a rendelések menedzseléséhez.
 
 ## Technikai háttér
@@ -77,3 +82,5 @@ A `SeedData` osztály futtatásával alapértelmezett termékek és kategóriák
 
 Ez a projekt oktatási célokat szolgál, de megfelelő továbbfejlesztéssel akár éles rendszer alapjául is szolgálhat. A célunk az volt, hogy egy jól strukturált, skálázható és bővíthető webshop-keretrendszert hozzunk létre, amely megfelel a mai webes fejlesztési alapelveknek.
 
+### Github
+https://github.com/szabobali/FullStack-projekt
