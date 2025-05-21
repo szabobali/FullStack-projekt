@@ -18,16 +18,16 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-white" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-link text-white" id="register" asp-area="Identity" asp-page="/Account/Register">Regisztráció</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-white" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link text-white" id="login" asp-area="Identity" asp-page="/Account/Login">Belépés</a>
     </li>
 }
     @if (User.IsInRole("Admin"))
     {
         <li class="nav-item">
-            <a class="nav-link text-white" asp-controller="OrderHandling" asp-action="Index">Order Handling</a>
+            <a class="nav-link text-white" asp-controller="OrderHandling" asp-action="Index">Rendelések kezelése</a>
         </li>
     }
     

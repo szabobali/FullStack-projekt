@@ -16,22 +16,22 @@ namespace webshop_projekt.Models
             if (!context.Categories.Any())
             {
                 context.Categories.AddRange(
-                    new Category { Name = "processzor" },
-                    new Category { Name = "alaplap" },
-                    new Category { Name = "memória" },
-                    new Category { Name = "ssd" },
-                    new Category { Name = "merevlemez" },
-                    new Category { Name = "videokártya" },
-                    new Category { Name = "cpu hűtő" },
-                    new Category { Name = "tápegység" },
-                    new Category { Name = "ház" },
-                    new Category { Name = "hűtés" },
-                    new Category { Name = "hálózati eszköz" },
-                    new Category { Name = "hangkártya" },
-                    new Category { Name = "digitalizáló kártya" },
-                    new Category { Name = "egér" },
-                    new Category { Name = "billentyűzet" },
-                    new Category { Name = "monitor" }
+                    new Category { Name = "Processzor" },
+                    new Category { Name = "Alaplap" },
+                    new Category { Name = "Memória" },
+                    new Category { Name = "Ssd" },
+                    new Category { Name = "Merevlemez" },
+                    new Category { Name = "Videokártya" },
+                    new Category { Name = "Cpu hűtő" },
+                    new Category { Name = "Tápegység" },
+                    new Category { Name = "Ház" },
+                    new Category { Name = "Hűtés" },
+                    new Category { Name = "Hálózati eszköz" },
+                    new Category { Name = "Hangkártya" },
+                    new Category { Name = "Digitalizáló kártya" },
+                    new Category { Name = "Egér" },
+                    new Category { Name = "Billentyűzet" },
+                    new Category { Name = "Monitor" }
                 );
                 context.SaveChanges(); // FONTOS!
             }
@@ -43,14 +43,14 @@ namespace webshop_projekt.Models
                     {
                         Name = "Intel Core i7-13700K",
                         Description = "16 magos, 24 szálas processzor kiváló teljesítménnyel játékhoz és munkához.",
-                        Category = context.Categories.First(c => c.Name == "processzor"),
+                        Category = context.Categories.First(c => c.Name == "Processzor"),
                         Price = 169900m
                     },
                     new Goods
                     {
                         Name = "AMD Ryzen 5 7600X",
                         Description = "6 magos, 12 szálas processzor, ideális középkategóriás rendszerekhez.",
-                        Category = context.Categories.First(c => c.Name == "processzor"),
+                        Category = context.Categories.First(c => c.Name == "Processzor"),
                         Price = 114900m
                     },
                     new Goods

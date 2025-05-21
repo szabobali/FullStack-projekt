@@ -5,52 +5,59 @@
 	<meta charset="utf-8" />
 	<title>Pc Bazár</title>
 	<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<style>
+	</style>
 </head>
 <body class="bg-secondary">
-    <div>
-        <nav class="navbar navbar-expand-lg bg-dark bg-gradient">
-            <div class="container-fluid ">
-                <a class="navbar-brand display-2" asp-controller="Home" asp-action="Index">Pc Bazár</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-controller="Cart" asp-action="Index">Kosár</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                    <form class="d-flex" role="search" asp-controller="Home" asp-action="Search" method="get">
-                        <input class="form-control me-2" type="search" name="query" placeholder="Keresés..." aria-label="Keresés" />
-                        <button class="btn border-primary text-white" type="submit">Keresés</button>
-                    </form>
+	<div>
+		<nav class="navbar navbar-expand-lg bg-dark bg-gradient">
+			<div class="container-fluid ">
+				<a class="navbar-brand display-2" asp-controller="Home" asp-action="Index">Pc Bazár</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active" asp-controller="Cart" asp-action="Index">Kosár</a>
+						</li>
+					</ul>
+					<partial name="_LoginPartial" />
+					<form class="d-flex" role="search" asp-controller="Home" asp-action="Search" method="get">
+						<input class="form-control me-2" type="search" name="query" placeholder="Keresés..." aria-label="Keresés" />
+						<button class="btn border-primary text-white" type="submit">Keresés</button>
+					</form>
 
-                </div>
-            </div>
-        </nav>
-        
-        <div class="row m-1 p-1">
-            <div id="categories" class="col-3">
-                @await Component.InvokeAsync("NavigationMenu")
-            </div>
-            <div class="col-9">
-                @RenderBody()
-                @RenderSection("Scripts", required: false)
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="row m-1 p-1">
+			<div id="categories" class="col-3">
+				@await Component.InvokeAsync("NavigationMenu")
+			</div>
+			<div class="col-9">
+				@RenderBody()
+				@RenderSection("Scripts", required: false)
+			</div>
+		</div>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const categoryPanel = document.getElementById("categories");
+			if (!categoryPanel) return;
+
+			window.addEventListener("scroll", () => {
+				const scrollY = window.scrollY;
+
+				const offset = Math.min(100 + scrollY / 4, 200); // top pozíció
+				const opacity = 1 - Math.min(scrollY / 500, 0.4); // áttetszőség
+
+				categoryPanel.style.top = '${offset}px';
+				categoryPanel.style.opacity = opacity;
+			});
+		});
+	</script>
 </body>
 
 </html>
