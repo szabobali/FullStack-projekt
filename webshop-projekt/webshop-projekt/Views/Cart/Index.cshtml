@@ -1,46 +1,66 @@
-﻿<html>
+﻿@{
+    ViewBag.Title = "Kosár";
+    var cart = ViewBag.cart as List<webshop_projekt.Models.Item>;
+}
+
+<!DOCTYPE html>
+<html>
 <head>
-	<meta name="viewport" content="width=device-width" />
-	<title>Index</title>
+    <meta name="viewport" content="width=device-width" />
+    <title>Kosár</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-	<h3>Cart Page</h3>
-	<table width="80%" cellpading="2" cellspacing="2" border="1">
-		<tr>
-			<th>Opció</th>
-			<th>Azonosító</th>
-			<th><center>Név</center></th>
-			<th>Ár</th>
-			<th>Db</th>
-			<th>Részösszeg</th>
-		</tr>
-		@if (ViewBag.cart != null)
-		{
-			@foreach (var item in ViewBag.cart)
-			{
-				<tr width="80%">
-					<td>
-						<a class="text-danger" asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.ID"> Eltávolítás </a>
-					</td>
-					<td>@item.Product.ID</td>
-					<td>@item.Product.Name</td>
-					<td>@item.Product.Price</td>
-					<td align="center">@item.Quantity</td>
-					<td align="center">@(item.Product.Price* item.Quantity)</td>
-				</tr>
-			}
-		}
-		<tr>
-			<td align="right" colspan="6">Összesen: </td>
-			<td>@ViewBag.total</td>
-		</tr>
-	</table>
-	<br />
-	<a class="text-black" asp-controller="home" asp-action="index">Vásárolok még</a>
-	<br />
-	@if (ViewBag.cart != null && ((List<webshop_projekt.Models.Item>)ViewBag.cart).Count != 0)
-	{
-		<a asp-controller="Cart" asp-action="CheckOut" class="btn btn-success mt-3">Tovább a fizetéshez</a>
-	}
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">🛒 Kosár tartalma</h2>
+
+        @if (cart != null && cart.Any())
+        {
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>Opció</th>
+                        <th>Azonosító</th>
+                        <th>Név</th>
+                        <th>Ár (Ft)</th>
+                        <th>Db</th>
+                        <th>Részösszeg (Ft)</th>
+                    </tr>
+                </thead>
+                <tbody class="table-light">
+                    @foreach (var item in cart)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-danger" asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.ID">Eltávolítás</a>
+                            </td>
+                            <td class="text-center">@item.Product.ID</td>
+                            <td>@item.Product.Name</td>
+                            <td class="text-end">@item.Product.Price.ToString("N0")</td>
+                            <td class="text-center">@item.Quantity</td>
+                            <td class="text-end">@((item.Product.Price * item.Quantity).ToString("N0"))</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="table-light">
+                    <tr>
+                        <td colspan="5" class="text-end fw-bold">Összesen:</td>
+                        <td class="text-end fw-bold">@ViewBag.total?.ToString("N0") Ft</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Index">← Vásárolok még</a>
+                <a asp-controller="Cart" asp-action="CheckOut" class="btn btn-success">Tovább a fizetéshez →</a>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info text-center">
+                A kosarad jelenleg üres. <a asp-controller="Home" asp-action="Index" class="alert-link">Kezdj el vásárolni!</a>
+            </div>
+        }
+    </div>
 </body>
 </html>

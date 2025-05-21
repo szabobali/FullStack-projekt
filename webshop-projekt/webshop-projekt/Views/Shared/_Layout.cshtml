@@ -42,22 +42,6 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-			const categoryPanel = document.getElementById("categories");
-			if (!categoryPanel) return;
-
-			window.addEventListener("scroll", () => {
-				const scrollY = window.scrollY;
-
-				const offset = Math.min(100 + scrollY / 4, 200); // top pozíció
-				const opacity = 1 - Math.min(scrollY / 500, 0.4); // áttetszőség
-
-				categoryPanel.style.top = '${offset}px';
-				categoryPanel.style.opacity = opacity;
-			});
-		});
-	</script>
 </body>
 
 </html>

@@ -1,17 +1,14 @@
 ﻿@using Microsoft.EntityFrameworkCore;
 @model Goods
-<div class="card m-2" style="width: 80%; background-color: lightskyblue">
-	<div class="card-body">
-		<h5 class="card-title">
-			@Model.Name
-			<a asp-controller="cart" asp-action="buy" asp-route-id="@Model.ID">
-				<button type="button" class="btn btn-primary" style="float:right">
-					<span class="badge badge-pill badge-primary">
-						<small>@Model.Price.ToString("c")</small>
-					</span>
-				</button>
+<div class="card m-3 shadow-sm" style="width: 100%; max-width: 600px;">
+	<div class="card-body bg-light">
+		<div class="d-flex justify-content-between align-items-center">
+			<h5 class="card-title mb-0">@Model.Name</h5>
+			<a asp-controller="cart" asp-action="buy" asp-route-id="@Model.ID" class="btn btn-primary">
+				<span class="fw-bold">@Model.Price.ToString("N0") Ft</span>
 			</a>
-		</h5>
+		</div>
+		<hr />
 		<p class="card-text">@Model.Description</p>
 	</div>
 </div>
