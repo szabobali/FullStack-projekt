@@ -14,7 +14,7 @@
 			<th>Quantity</th>
 			<th>Sub Total</th>
 		</tr>
-		@if (ViewBag.cart != null && ViewBag.cart.Any())
+		@if (ViewBag.cart != null)
 		{
 			@foreach (var item in ViewBag.cart)
 			{

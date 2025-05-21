@@ -20,7 +20,7 @@ namespace webshop_projekt.Controllers
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             ViewBag.cart = cart;
 
-            if (cart != null && cart.Any())
+            if (cart != null)
             {
                 var sum = cart.Sum(item => item.Product.Price * item.Quantity);
                 ViewBag.total = sum;
